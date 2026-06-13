@@ -16,12 +16,16 @@ Not yet deployed
 
 ### Task Management
 * Add new tasks with an optional due date and time.
-* Edit existing tasks' descriptions and due dates.
+* Create and manage sub-tasks (checklists) for each main task.
+* Edit existing tasks' descriptions, categories, and due dates.
 * Delete individual tasks.
 * Toggle tasks between active and completed states.
 * Bulk clear all completed tasks.
 
 ### Filtering and Views
+* Organize tasks with customizable categories (General, Work, Personal, Urgent).
+* Search bar to instantly filter tasks by text.
+* Sorting options (Custom Order, Date Added, Due Date, Alphabetical).
 * Filter tasks by status: All, Active, and Completed.
 * Interactive Calendar view to browse tasks by date.
 * Visual overdue indicators for tasks that are past their due dates.
@@ -29,9 +33,12 @@ Not yet deployed
 ### Data & Utility
 * Local Storage persistence to save tasks across browser sessions.
 * Real-time statistics showing total, active, and completed task counts.
+* Browser Push Notifications to alert you when a task becomes overdue.
 * Email sharing feature to send a formatted list of active and completed tasks to a specified recipient.
 
 ### User Interface
+* Dark Mode / Theme Switcher to easily toggle between light and dark themes.
+* Drag and Drop Reordering to manually arrange tasks exactly how you want them.
 * Responsive design that works on desktop and mobile devices.
 * Interactive modals for editing tasks and sending emails.
 * Toast notifications for user actions (adding, deleting, error handling).
