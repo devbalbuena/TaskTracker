@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Todo List — Sign In</title>
+    <meta name="description" content="Sign in or create an account to manage your tasks." />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  </head>
+  <body class="auth-body">
+    <div class="auth-wrapper">
+      <!-- Brand Section -->
+      <div class="auth-brand">
+        <div class="auth-brand-icon"><i class="fas fa-tasks"></i></div>
+        <h1>Advanced Todo List</h1>
+        <p>Stay organized. Stay productive.</p>
+      </div>
+
+      <!-- Auth Card -->
+      <div class="auth-card">
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="loginTab">Sign In</button>
+          <button class="auth-tab" id="registerTab">Create Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form">
+          <div class="form-group">
+            <label for="loginEmail">Email Address</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required />
+              <button type="button" class="toggle-pass" tabindex="-1">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div id="loginError" class="auth-error hidden"></div>
+          <button type="submit" id="loginSubmit" class="btn btn-primary btn-full">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" class="auth-form hidden">
+          <div class="form-group">
+            <label for="regUsername">Username</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="regUsername" placeholder="e.g. dexter123" autocomplete="username" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="regEmail">Email Address</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="regPassword">Password <span class="label-hint">(min. 6 characters)</span></label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="regPassword" placeholder="Create a strong password" autocomplete="new-password" required />
+              <button type="button" class="toggle-pass" tabindex="-1">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div id="registerError" class="auth-error hidden"></div>
+          <button type="submit" id="registerSubmit" class="btn btn-primary btn-full">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </form>
+      </div>
+
+      <p class="auth-footer">
+        &copy; 2026 Advanced Todo List &mdash; Dexter Balbuena
+      </p>
+    </div>
+
+    <script src="auth.js"></script>
+  </body>
+</html>

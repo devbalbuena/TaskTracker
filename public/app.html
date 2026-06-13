@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Todo List</title>
+    <meta name="description" content="Manage your daily tasks with categories, due dates, subtasks, and more." />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-top">
+          <h1><i class="fas fa-tasks"></i> Advanced Todo List</h1>
+          <div class="header-controls">
+            <div class="user-info" id="userInfo">
+              <i class="fas fa-user-circle"></i>
+              <span id="usernameDisplay">User</span>
+            </div>
+            <button id="themeToggle" class="btn-icon theme-toggle" title="Toggle Dark Mode">
+              <i class="fas fa-moon"></i>
+            </button>
+            <button id="logoutBtn" class="btn-icon logout-btn" title="Log Out">
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        </div>
+        <div class="date-display" id="currentDate"></div>
+      </header>
+
+      <div class="add-todo-section">
+        <div class="input-group">
+          <input type="text" id="todoInput" placeholder="What needs to be done?" />
+          <select id="todoCategory" class="category-select">
+            <option value="General">General</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Urgent">Urgent</option>
+          </select>
+          <input type="datetime-local" id="todoDateTime" class="datetime-input" />
+          <button id="addBtn" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <div class="search-sort-group">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search tasks..." />
+          </div>
+          <select id="sortSelect" class="sort-select">
+            <option value="custom">Custom Order</option>
+            <option value="dateAdded">Date Added</option>
+            <option value="dueDate">Due Date</option>
+            <option value="az">A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <button class="filter-btn active" data-filter="all">
+          <i class="fas fa-list"></i> All
+        </button>
+        <button class="filter-btn" data-filter="active">
+          <i class="fas fa-clock"></i> Active
+        </button>
+        <button class="filter-btn" data-filter="completed">
+          <i class="fas fa-check"></i> Completed
+        </button>
+        <button class="filter-btn" data-filter="calendar">
+          <i class="fas fa-calendar"></i> Calendar
+        </button>
+      </div>
+
+      <div class="todo-container">
+        <div id="loadingState" class="loading-state">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Loading your tasks...</p>
+        </div>
+        <ul id="todoList" class="todo-list" style="display:none;"></ul>
+        <div id="emptyState" class="empty-state" style="display:none;">
+          <i class="fas fa-inbox"></i>
+          <p>No tasks found. Add one above!</p>
+        </div>
+      </div>
+
+      <div id="calendarView" class="calendar-view hidden">
+        <div class="calendar-header">
+          <button id="prevMonth" class="btn btn-secondary">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <h3 id="currentMonth"></h3>
+          <button id="nextMonth" class="btn btn-secondary">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div id="calendar" class="calendar-grid"></div>
+      </div>
+
+      <div id="emailModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-envelope"></i> Send Todo List via Email</h3>
+            <button class="close-btn" id="closeModal"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="modal-body">
+            <input type="email" id="emailInput" placeholder="Enter recipient email" />
+            <textarea id="emailMessage" placeholder="Optional message..."></textarea>
+            <div class="email-actions">
+              <button id="sendEmail" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Send Email
+              </button>
+              <button id="cancelEmail" class="btn btn-secondary">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-section">
+        <button id="emailBtn" class="btn btn-info">
+          <i class="fas fa-envelope"></i> Email List
+        </button>
+        <button id="clearCompleted" class="btn btn-danger">
+          <i class="fas fa-trash"></i> Clear Completed
+        </button>
+      </div>
+
+      <div class="stats">
+        <span id="totalTasks">0 tasks</span> •
+        <span id="activeTasks">0 active</span> •
+        <span id="completedTasks">0 completed</span>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+      <div class="modal-content modal-lg">
+        <div class="modal-header">
+          <h3><i class="fas fa-edit"></i> Edit Task</h3>
+          <button class="close-btn" id="closeEditModal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Task Description</label>
+            <input type="text" id="editInput" placeholder="Task description" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Category</label>
+              <select id="editCategory" class="category-select w-100">
+                <option value="General">General</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Due Date</label>
+              <input type="datetime-local" id="editDateTime" class="datetime-input w-100" />
+            </div>
+          </div>
+
+          <div class="subtasks-section">
+            <h4><i class="fas fa-tasks"></i> Sub-tasks</h4>
+            <div class="subtask-input-group">
+              <input type="text" id="subtaskInput" placeholder="Add a sub-task..." />
+              <button id="addSubtaskBtn" class="btn btn-secondary btn-sm">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            <ul id="editSubtaskList" class="subtask-list"></ul>
+          </div>
+
+          <div class="edit-actions mt-3">
+            <button id="saveEdit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+            <button id="cancelEdit" class="btn btn-secondary">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
