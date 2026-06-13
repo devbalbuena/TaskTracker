@@ -13,7 +13,12 @@
   <body>
     <div class="container">
       <header class="header">
-        <h1><i class="fas fa-tasks"></i> Advanced Todo List</h1>
+        <div class="header-top">
+          <h1><i class="fas fa-tasks"></i> Advanced Todo List</h1>
+          <button id="themeToggle" class="btn-icon theme-toggle" title="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
         <div class="date-display" id="currentDate"></div>
       </header>
 
@@ -24,6 +29,12 @@
             id="todoInput"
             placeholder="What needs to be done?"
           />
+          <select id="todoCategory" class="category-select">
+            <option value="General">General</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Urgent">Urgent</option>
+          </select>
           <input
             type="datetime-local"
             id="todoDateTime"
@@ -32,6 +43,21 @@
           <button id="addBtn" class="btn btn-primary">
             <i class="fas fa-plus"></i> Add
           </button>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <div class="search-sort-group">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search tasks..." />
+          </div>
+          <select id="sortSelect" class="sort-select">
+            <option value="custom">Custom Order</option>
+            <option value="dateAdded">Date Added</option>
+            <option value="dueDate">Due Date</option>
+            <option value="az">A-Z</option>
+          </select>
         </div>
       </div>
 
@@ -54,7 +80,7 @@
         <ul id="todoList" class="todo-list"></ul>
         <div id="emptyState" class="empty-state">
           <i class="fas fa-inbox"></i>
-          <p>No tasks yet. Add one above!</p>
+          <p>No tasks found. Add one above!</p>
         </div>
       </div>
 
@@ -116,7 +142,7 @@
     </div>
 
     <div id="editModal" class="modal">
-      <div class="modal-content">
+      <div class="modal-content modal-lg">
         <div class="modal-header">
           <h3><i class="fas fa-edit"></i> Edit Task</h3>
           <button class="close-btn" id="closeEditModal">
@@ -124,15 +150,38 @@
           </button>
         </div>
         <div class="modal-body">
-          <input type="text" id="editInput" placeholder="Task description" />
-          <input
-            type="datetime-local"
-            id="editDateTime"
-            class="datetime-input"
-          />
-          <div class="edit-actions">
+          <div class="form-group">
+            <label>Task Description</label>
+            <input type="text" id="editInput" placeholder="Task description" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Category</label>
+              <select id="editCategory" class="category-select w-100">
+                <option value="General">General</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Urgent">Urgent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Due Date</label>
+              <input type="datetime-local" id="editDateTime" class="datetime-input w-100" />
+            </div>
+          </div>
+          
+          <div class="subtasks-section">
+            <h4><i class="fas fa-tasks"></i> Sub-tasks</h4>
+            <div class="subtask-input-group">
+              <input type="text" id="subtaskInput" placeholder="Add a sub-task..." />
+              <button id="addSubtaskBtn" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i></button>
+            </div>
+            <ul id="editSubtaskList" class="subtask-list"></ul>
+          </div>
+
+          <div class="edit-actions mt-3">
             <button id="saveEdit" class="btn btn-primary">
-              <i class="fas fa-save"></i> Save
+              <i class="fas fa-save"></i> Save Changes
             </button>
             <button id="cancelEdit" class="btn btn-secondary">Cancel</button>
           </div>
